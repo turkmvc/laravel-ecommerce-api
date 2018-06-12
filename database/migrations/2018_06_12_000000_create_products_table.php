@@ -17,10 +17,11 @@ class CreateProductsTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->text('detail');
-            $table->float('price', 12,2);
+            $table->float('price', 12, 2);
             $table->integer('stock');
             $table->integer('featured_picture_id')->unsigned()->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
