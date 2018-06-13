@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Model\Product;
+use App\Http\Resources\Product\ProductResource;
+use App\Http\Resources\Product\ProductListResource;
 
 class ProductController extends Controller
 {
@@ -13,7 +16,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+        return ProductListResource::collection(Product::paginate(50));
     }
 
     /**
@@ -35,7 +38,13 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        //
+        try{
+            $product = Product::findOrFail($id);
+            return new ProductResource($product);
+        }catch(\Exception $e)
+        {
+            //
+        }
     }
 
     /**

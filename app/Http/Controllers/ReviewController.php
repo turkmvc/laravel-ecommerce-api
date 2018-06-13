@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Resources\Review\ReviewResource;
+use App\Model\Review;
+use App\Model\Product;
 
 class ReviewController extends Controller
 {
@@ -11,9 +14,9 @@ class ReviewController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Product $product)
     {
-        //
+        return ReviewResource::collection(Review::where('product_id', $product->id)->paginate(5));
     }
 
     /**
@@ -35,7 +38,7 @@ class ReviewController extends Controller
      */
     public function show($id)
     {
-        //
+        return new ReviewResource(Review::findOrFail($id));
     }
 
     /**
